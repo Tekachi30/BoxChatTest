@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();  
+const path = require('path');
+const app = express();
 const http = require('http');
-const server = http.createServer(app); 
-const {Server} = require("socket.io");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
 const io = new Server(server);
 const port = 5000;
 
@@ -13,14 +14,12 @@ app.use(bodyParser.json());
 
 app.use(express.json());
 
-
-app.use(express.json());
 app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
 app.set('views', 'views')
 
-io.on("connection", function(client){
+io.on("connection", (socket) => {
     console.log("có người kết nối");
     var room; //phòng chat
 
@@ -37,8 +36,6 @@ io.on("connection", function(client){
 app.get('/chat', (req, res) => {
     return res.render("chat.ejs");
 })
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -1,4 +1,4 @@
-
+var socket = io.connect('http://localhost:5000/');
 const ip_name = document.getElementById('name');
 const ip_room= document.getElementById('room');
 const btn_join = document.getElementById('btn_join');
@@ -6,9 +6,7 @@ const btn_join = document.getElementById('btn_join');
 const ip_message = document.getElementById('ip_message');
 const btn_send = document.getElementById('btn_send');
 
-var socket = io.connect();
-
-socket.on('connect', function(data){
+socket.on('connect', (socket)=>{
     console.log(data);
 })
 
@@ -25,3 +23,4 @@ btn_send.addEventListener('click', ()=>{
 socket.on('thread', function(data){
     console.log(data);
 }) 
+
